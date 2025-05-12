@@ -23,6 +23,7 @@ public class UserProfileMapperImpl implements UserProfileMapper {
 
         UserProfile.UserProfileBuilder userProfile = UserProfile.builder();
 
+        userProfile.userId( request.getUserId() );
         userProfile.firstName( request.getFirstName() );
         userProfile.lastName( request.getLastName() );
         userProfile.dob( request.getDob() );
@@ -40,6 +41,7 @@ public class UserProfileMapperImpl implements UserProfileMapper {
         UserProfileReponse.UserProfileReponseBuilder userProfileReponse = UserProfileReponse.builder();
 
         userProfileReponse.id( entity.getId() );
+        userProfileReponse.userId( entity.getUserId() );
         userProfileReponse.firstName( entity.getFirstName() );
         userProfileReponse.lastName( entity.getLastName() );
         userProfileReponse.dob( entity.getDob() );
@@ -54,6 +56,7 @@ public class UserProfileMapperImpl implements UserProfileMapper {
             return;
         }
 
+        entity.setUserId( request.getUserId() );
         entity.setFirstName( request.getFirstName() );
         entity.setLastName( request.getLastName() );
         entity.setDob( request.getDob() );
