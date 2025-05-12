@@ -3,6 +3,8 @@ package com.devteria.profile.mapper;
 import com.devteria.profile.dto.request.ProfileCreationRequest;
 import com.devteria.profile.dto.response.UserProfileReponse;
 import com.devteria.profile.entity.UserProfile;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
@@ -44,5 +46,31 @@ public class UserProfileMapperImpl implements UserProfileMapper {
         userProfileReponse.city( entity.getCity() );
 
         return userProfileReponse.build();
+    }
+
+    @Override
+    public void updateUserProfile(UserProfile entity, ProfileCreationRequest request) {
+        if ( request == null ) {
+            return;
+        }
+
+        entity.setFirstName( request.getFirstName() );
+        entity.setLastName( request.getLastName() );
+        entity.setDob( request.getDob() );
+        entity.setCity( request.getCity() );
+    }
+
+    @Override
+    public List<UserProfileReponse> toListUserProfile(List<UserProfile> userProfiles) {
+        if ( userProfiles == null ) {
+            return null;
+        }
+
+        List<UserProfileReponse> list = new ArrayList<UserProfileReponse>( userProfiles.size() );
+        for ( UserProfile userProfile : userProfiles ) {
+            list.add( toUserProfileReponse( userProfile ) );
+        }
+
+        return list;
     }
 }
