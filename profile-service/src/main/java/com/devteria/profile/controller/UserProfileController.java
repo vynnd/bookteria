@@ -18,11 +18,6 @@ import java.util.List;
 public class UserProfileController {
     UserProfileService userProfileService;
 
-    @PostMapping("/users")
-    UserProfileReponse createProfile(@RequestBody ProfileCreationRequest request) {
-        return userProfileService.createProfile(request);
-    }
-
     @GetMapping("/users/{profileId}")
     UserProfileReponse getProfile(@PathVariable String profileId) {
         return userProfileService.getProfile(profileId);
