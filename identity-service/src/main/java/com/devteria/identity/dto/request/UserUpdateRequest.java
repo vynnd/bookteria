@@ -22,4 +22,5 @@ public class UserUpdateRequest {
     LocalDate dob;
 
     List<String> roles;
+    String city;
 }

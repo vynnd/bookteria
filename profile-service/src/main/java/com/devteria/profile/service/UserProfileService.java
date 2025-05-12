@@ -48,4 +48,16 @@ public class UserProfileService {
     public List<UserProfileReponse> allUsers(){
        return userProfileMapper.toListUserProfile(userProfileRepository.findAll());
     }
+
+    public UserProfileReponse updateProfileByUserId(ProfileCreationRequest request) {
+        UserProfile userProfile = userProfileRepository.findByUserId(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        userProfileMapper.updateUserProfile(userProfile, request);
+
+        return userProfileMapper.toUserProfileReponse(userProfileRepository.save(userProfile));
+    }
+
+    public void deleteUserProfile(String userId){
+        userProfileRepository.deleteByUserId(userId);
+    }
 }

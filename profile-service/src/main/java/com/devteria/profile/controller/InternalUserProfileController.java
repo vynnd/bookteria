@@ -18,4 +18,14 @@ public class InternalUserProfileController {
     UserProfileReponse createProfile(@RequestBody ProfileCreationRequest request) {
         return userProfileService.createProfile(request);
     }
+
+    @PutMapping("/internal/users")
+    UserProfileReponse updateProfileByUserId(@RequestBody ProfileCreationRequest request){
+        return userProfileService.updateProfileByUserId(request);
+    }
+
+    @DeleteMapping("/internal/users/{userId}")
+    void deleteUserProfile(@PathVariable String userId){
+        userProfileService.deleteUserProfile(userId);
+    }
 }

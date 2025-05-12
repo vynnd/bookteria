@@ -77,12 +77,17 @@ public class UserService {
         var roles = roleRepository.findAllById(request.getRoles());
         user.setRoles(new HashSet<>(roles));
 
+        var profileUpdateRequest = profileMapper.toProfileCreationRequest(request);
+        profileUpdateRequest.setUserId(userId);
+        profileClient.updateProfile(profileUpdateRequest);
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(String userId) {
         userRepository.deleteById(userId);
+        profileClient.deleteProfile(userId);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
