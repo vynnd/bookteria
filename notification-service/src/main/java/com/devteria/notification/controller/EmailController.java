@@ -28,9 +28,4 @@ public class EmailController {
                 .result(emailService.sendEmail(request))
                 .build();
     }
-
-    @KafkaListener(topics = "onboard-successful")
-    public void message(String message){
-        log.info(message);
-    }
 }
