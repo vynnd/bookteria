@@ -37,17 +37,17 @@ public class DateTimeCustomFormatter {
 
     private String formatInSeconds(Instant instant){
         long elapseSeconds = ChronoUnit.SECONDS.between(instant, Instant.now());
-        return elapseSeconds + " seconds";
+        return elapseSeconds + " seconds ago";
     }
 
     private String formatInMinutes(Instant instant){
         long elapseMinutes = ChronoUnit.MINUTES.between(instant, Instant.now());
-        return elapseMinutes + " minutes";
+        return elapseMinutes + " minutes ago";
     }
 
     private String formatInHours(Instant instant){
         long elapseHours = ChronoUnit.HOURS.between(instant, Instant.now());
-        return elapseHours + " hours";
+        return elapseHours + " hours ago";
     }
 
     private String formatInDate(Instant instant){
