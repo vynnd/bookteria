@@ -31,6 +31,7 @@ public class FileService {
         var fileMgmt = fileMgmtMapper.toFileInfo(fileInfo);
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         fileMgmt.setOwnerId(userId);
+        fileMgmt = fileMgmtRepository.save(fileMgmt);
 
         return FileResponse.builder()
                 .originalFileName(file.getOriginalFilename())
