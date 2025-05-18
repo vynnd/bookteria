@@ -1,5 +1,7 @@
 package com.devteria.profile.service;
 
+import com.devteria.profile.exception.AppException;
+import com.devteria.profile.exception.ErrorCode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +35,24 @@ public class UserProfileService {
 
     public UserProfileReponse getProfile(String id) {
         UserProfile userProfile =
-                userProfileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found"));
+                userProfileRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileReponse(userProfile);
     }
 
     public UserProfileReponse updateProfile(String id, ProfileCreationRequest request) {
         UserProfile userProfile = userProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         userProfileMapper.updateUserProfile(userProfile, request);
 
         return userProfileMapper.toUserProfileReponse(userProfileRepository.save(userProfile));
+    }
+
+    public UserProfileReponse getByUserId(String userId) {
+        UserProfile userProfile = userProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return userProfileMapper.toUserProfileReponse(userProfile);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
