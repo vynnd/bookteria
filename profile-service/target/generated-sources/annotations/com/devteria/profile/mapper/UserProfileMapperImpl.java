@@ -57,6 +57,7 @@ public class UserProfileMapperImpl implements UserProfileMapper {
 
         userProfileReponse.id( entity.getId() );
         userProfileReponse.userId( entity.getUserId() );
+        userProfileReponse.avatar( entity.getAvatar() );
         userProfileReponse.firstName( entity.getFirstName() );
         userProfileReponse.lastName( entity.getLastName() );
         userProfileReponse.userName( entity.getUserName() );

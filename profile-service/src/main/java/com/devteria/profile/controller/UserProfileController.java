@@ -11,6 +11,7 @@ import com.devteria.profile.service.UserProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -46,6 +47,13 @@ public class UserProfileController {
     ApiResponse<UserProfileReponse> updateMyInfo(@RequestBody UpdateProfileRequest request) {
         return ApiResponse.<UserProfileReponse>builder()
                 .result(userProfileService.updateMyInfo(request))
+                .build();
+    }
+
+    @PutMapping("/users/avatar")
+    ApiResponse<UserProfileReponse> updateAvatar(@RequestParam("file") MultipartFile file) {
+        return ApiResponse.<UserProfileReponse>builder()
+                .result(userProfileService.updateAvatar(file))
                 .build();
     }
 }

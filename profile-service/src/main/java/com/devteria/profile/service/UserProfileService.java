@@ -3,6 +3,7 @@ package com.devteria.profile.service;
 import com.devteria.profile.dto.request.UpdateProfileRequest;
 import com.devteria.profile.exception.AppException;
 import com.devteria.profile.exception.ErrorCode;
+import com.devteria.profile.repository.httpclient.FileClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ import java.util.List;
 public class UserProfileService {
     UserProfileRepository userProfileRepository;
     UserProfileMapper userProfileMapper;
+    FileClient fileClient;
 
     public UserProfileReponse createProfile(ProfileCreationRequest request) {
         UserProfile userProfile = userProfileMapper.toUserProfile(request);
@@ -56,6 +59,17 @@ public class UserProfileService {
                 userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         userProfileMapper.updateUserProfile(userProfile, request);
+        return userProfileMapper.toUserProfileReponse(userProfileRepository.save(userProfile));
+    }
+
+    public UserProfileReponse updateAvatar(MultipartFile file){
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserProfile userProfile =
+                userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        var fileResponse = fileClient.uploadMedia(file);
+
+        // upload file - invoke an api file service
+        userProfile.setAvatar(fileResponse.getResult().getUrl());
         return userProfileMapper.toUserProfileReponse(userProfileRepository.save(userProfile));
     }
 
