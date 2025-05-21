@@ -15,6 +15,7 @@ public class UserProfileResponse {
     String firstName;
     String lastName;
     String userName;
+    String email;
     LocalDate dob;
     String city;
 }

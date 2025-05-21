@@ -57,6 +57,7 @@ public class UserService {
         var profileRequest = profileMapper.toProfileCreationRequest(request);
         profileRequest.setUserId(user.getId());
         profileRequest.setUserName(user.getUsername());
+        profileRequest.setEmail(user.getEmail());
         profileClient.createProfile(profileRequest);
 
         NotificationEvent notificationEvent = NotificationEvent.builder()

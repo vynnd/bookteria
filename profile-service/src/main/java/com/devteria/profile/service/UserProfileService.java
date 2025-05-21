@@ -3,6 +3,7 @@ package com.devteria.profile.service;
 import com.devteria.profile.exception.AppException;
 import com.devteria.profile.exception.ErrorCode;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.devteria.profile.dto.request.ProfileCreationRequest;
@@ -36,6 +37,14 @@ public class UserProfileService {
     public UserProfileReponse getProfile(String id) {
         UserProfile userProfile =
                 userProfileRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return userProfileMapper.toUserProfileReponse(userProfile);
+    }
+
+    public UserProfileReponse myInfo() {
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserProfile userProfile =
+                userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileReponse(userProfile);
     }
