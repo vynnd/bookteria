@@ -1,5 +1,6 @@
 package com.devteria.profile.mapper;
 
+import com.devteria.profile.dto.request.UpdateProfileRequest;
 import org.mapstruct.Mapper;
 
 import com.devteria.profile.dto.request.ProfileCreationRequest;
@@ -13,6 +14,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
     UserProfile toUserProfile(ProfileCreationRequest request);
+
+    void updateUserProfile(@MappingTarget  UserProfile entity, UpdateProfileRequest request);
 
     UserProfileReponse toUserProfileReponse(UserProfile entity);
 

@@ -66,7 +66,6 @@ export default function Profile() {
       const profileData = {
         firstName,
         lastName,
-        email,
         city,
         dob: dob ? dob.format("YYYY-MM-DD") : null,
       };
@@ -315,7 +314,7 @@ export default function Profile() {
                   fontSize: 14,
                 }}
               >
-                {userDetails.id}
+                {userDetails.userId}
               </Typography>
             </Box>
             <Box

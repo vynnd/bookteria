@@ -1,6 +1,7 @@
 package com.devteria.profile.controller;
 
 import com.devteria.profile.dto.ApiResponse;
+import com.devteria.profile.dto.request.UpdateProfileRequest;
 import org.springframework.web.bind.annotation.*;
 
 import com.devteria.profile.dto.request.ProfileCreationRequest;
@@ -39,5 +40,12 @@ public class UserProfileController {
     @PutMapping("/users/{profileId}")
     UserProfileReponse updateProfile(@PathVariable String profileId, @RequestBody ProfileCreationRequest request){
         return userProfileService.updateProfile(profileId, request);
+    }
+
+    @PutMapping("/users/my-profile")
+    ApiResponse<UserProfileReponse> updateMyInfo(@RequestBody UpdateProfileRequest request) {
+        return ApiResponse.<UserProfileReponse>builder()
+                .result(userProfileService.updateMyInfo(request))
+                .build();
     }
 }

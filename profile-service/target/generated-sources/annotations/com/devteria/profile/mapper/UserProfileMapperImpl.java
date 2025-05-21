@@ -1,6 +1,7 @@
 package com.devteria.profile.mapper;
 
 import com.devteria.profile.dto.request.ProfileCreationRequest;
+import com.devteria.profile.dto.request.UpdateProfileRequest;
 import com.devteria.profile.dto.response.UserProfileReponse;
 import com.devteria.profile.entity.UserProfile;
 import java.util.ArrayList;
@@ -32,6 +33,18 @@ public class UserProfileMapperImpl implements UserProfileMapper {
         userProfile.city( request.getCity() );
 
         return userProfile.build();
+    }
+
+    @Override
+    public void updateUserProfile(UserProfile entity, UpdateProfileRequest request) {
+        if ( request == null ) {
+            return;
+        }
+
+        entity.setFirstName( request.getFirstName() );
+        entity.setLastName( request.getLastName() );
+        entity.setDob( request.getDob() );
+        entity.setCity( request.getCity() );
     }
 
     @Override

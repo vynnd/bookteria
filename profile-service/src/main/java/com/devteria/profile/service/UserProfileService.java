@@ -1,5 +1,6 @@
 package com.devteria.profile.service;
 
+import com.devteria.profile.dto.request.UpdateProfileRequest;
 import com.devteria.profile.exception.AppException;
 import com.devteria.profile.exception.ErrorCode;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,6 +48,15 @@ public class UserProfileService {
                 userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileReponse(userProfile);
+    }
+
+    public UserProfileReponse updateMyInfo(UpdateProfileRequest request){
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserProfile userProfile =
+                userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        userProfileMapper.updateUserProfile(userProfile, request);
+        return userProfileMapper.toUserProfileReponse(userProfileRepository.save(userProfile));
     }
 
     public UserProfileReponse updateProfile(String id, ProfileCreationRequest request) {

@@ -11,7 +11,7 @@ export const getMyInfo = async () => {
 };
 
 export const updateProfile = async (profileData) => {
-  return await httpClient.put(API.UPDATE_PROFILE, profileData, {
+  return await httpClient.put(API.MY_INFO, profileData, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
       "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const updateProfile = async (profileData) => {
 };
 
 export const uploadAvatar = async (formData) => {
-  return await httpClient.put(API.UPDATE_AVATAR, formData, {
+  return await httpClient.put(API.UPDATE_PROFILE, formData, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
       "Content-Type": "multipart/form-data",
